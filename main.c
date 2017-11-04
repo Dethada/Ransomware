@@ -114,7 +114,6 @@ Filez readfile(uint8_t *name) {
 	// get file size
 	fseek(fp, 0, SEEK_END);
 	file.size = ftell(fp);
-	printf("File length: %ld\n", file.size);
 	rewind(fp);
 
 	// initalize buffer with file size
