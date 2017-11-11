@@ -22,7 +22,7 @@ int check(const char *);
 
 Filez file;
 
-int main(int argc,const char *argv[]) {
+int main(int argc, uint8_t *argv[]) {
 	const char *path;
 	// get starting path
 	if (argc == 1) {
@@ -42,11 +42,14 @@ int main(int argc,const char *argv[]) {
 void encryptFile(const char* array) {
 	// read file into buffer
 	if (readfile(array) == 1) {
+		printf("Failed to read %s\n", array);
 		return;
 	}
+	printf("Read %s\n", array);
 	
 	// encrypt file
 	encryptDecrypt(file.buffer, file.size);
+	printf("Encryption successful\n");
 
 	// write out to disk
 	writefile(array, file.buffer, file.size);
@@ -133,9 +136,11 @@ void encryptDecrypt(uint8_t *input, uint64_t size) {
 void writefile(const uint8_t *name, uint8_t *content, uint64_t size) {
 	FILE *fp = fopen(name, "wb");
 	if (fp == NULL) {
+		printf("Failed to write %s\n", name);
 		return;
 	}
 	fwrite(content, 1, size, fp);
+	printf("Write successful\n");
 }
 
 int readfile(const uint8_t *name) {
